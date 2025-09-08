@@ -34,20 +34,28 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
-import { useId, useState } from "react";
+import { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 
 export default function TransactionStatPage() {
-  const id = useId();
   const statusOptions = [
-    { id: `${id}-1`, label: "All", value: "" },
-    { id: `${id}-2`, label: "Completed", value: "COMPLETED" },
-    { id: `${id}-3`, label: "Pending", value: "PENDING" },
-    { id: `${id}-4`, label: "Reversed", value: "REVERSED" },
+    { label: "Completed", value: "COMPLETED" },
+    { label: "Pending", value: "PENDING" },
+    { label: "Reversed", value: "REVERSED" },
   ];
+
+  const transactionTypes = [
+    { label: "Cash In", value: "USER_CASH_IN" },
+    { label: "Cash Out", value: "USER_CASH_OUT" },
+    { label: "Add Money", value: "USER_ADD_MONEY" },
+    { label: "User Send Money", value: "USER_SEND_MONEY" },
+    { label: "Agent Send Money", value: "AGENT_SEND_MONEY" },
+  ];
+
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedStatus, setSelectedStatus] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
+  const [selectedType, setSelectedType] = useState<string[]>(["USER_CASH_OUT"]);
   const [page, setPage] = useState(1);
   const totalPage = 2;
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -55,6 +63,21 @@ export default function TransactionStatPage() {
       console.log(searchTerm);
     }
   };
+
+  const handleTypeChanged = (data: string) => {
+    if (selectedType.includes(data)) {
+      const updatedTypes = selectedType.filter((item) => item !== data);
+      setSelectedType(updatedTypes);
+    } else setSelectedType([...selectedType, data]);
+  };
+
+  const handleStatusChanged = (data: string) => {
+    if (selectedStatus.includes(data)) {
+      const updatedStatus = selectedStatus.filter((item) => item !== data);
+      setSelectedStatus(updatedStatus);
+    } else setSelectedStatus([...selectedStatus, data]);
+  };
+
   return (
     <div>
       <div className="md:grid grid-cols-4 md:gap-3">
@@ -96,9 +119,9 @@ export default function TransactionStatPage() {
                             >
                               <Checkbox
                                 id={opt.id}
-                                checked={selectedStatus === opt.value}
+                                checked={selectedStatus.includes(opt.value)}
                                 onCheckedChange={() =>
-                                  setSelectedStatus(opt.value)
+                                  handleStatusChanged(opt.value)
                                 }
                               />
                               <Label htmlFor={opt.id}>{opt.label}</Label>
@@ -107,23 +130,25 @@ export default function TransactionStatPage() {
                         </AccordionContent>
                       </AccordionItem>
                       <AccordionItem value="item-3">
-                        <AccordionTrigger className="pt-2 pb-0">
-                          Account Status
+                        <AccordionTrigger className="py-2 pb-4">
+                          Transaction Type
                         </AccordionTrigger>
                         <AccordionContent className="flex flex-col gap-4 text-balance">
-                          {/* {accountStatusOptions.map((opt) => (
-                      <div
-                        key={opt.id}
-                        className="flex gap-2 items-center  hover:cursor-pointer"
-                      >
-                        <Checkbox
-                          id={opt.id}
-                          checked={accountStatus === opt.value}
-                          onCheckedChange={() => setAccountStatus(opt.value)}
-                        />
-                        <Label htmlFor={opt.id}>{opt.label}</Label>
-                      </div>
-                    ))} */}
+                          {transactionTypes.map((opt) => (
+                            <div
+                              key={opt.label}
+                              className="flex gap-2 items-center  hover:cursor-pointer"
+                            >
+                              <Checkbox
+                                id={opt.label}
+                                onCheckedChange={() =>
+                                  handleTypeChanged(opt.value)
+                                }
+                                checked={selectedType.includes(opt.value)}
+                              />
+                              <Label htmlFor={opt.label}>{opt.label}</Label>
+                            </div>
+                          ))}
                         </AccordionContent>
                       </AccordionItem>
                     </Accordion>
