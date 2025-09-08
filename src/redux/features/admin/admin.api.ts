@@ -18,8 +18,21 @@ export const userApi = baseApi.injectEndpoints({
       }),
     }),
     adminAnalytics: builder.query({
-      query: ({currentQuater}) => ({
+      query: ({ currentQuater }) => ({
         url: `/stat/admin-analytics?currentQuater=${currentQuater}`,
+        method: "GET",
+        data: null,
+      }),
+    }),
+    transactionStatistics: builder.query({
+      query: ({
+        selectedUsers,
+        selectedStatus,
+        selectedType,
+        fromDate,
+        toDate,
+      }) => ({
+        url: `/stat/transactionStat?selectedUsers=${selectedUsers}&fromDate=${fromDate}&selectedStatus=${selectedStatus}&selectedType=${selectedType}&toDate=${toDate}`,
         method: "GET",
         data: null,
       }),
@@ -27,7 +40,4 @@ export const userApi = baseApi.injectEndpoints({
   }),
 });
 
-export const {
-  useGetAllUsersQuery,
-  useAdminAnalyticsQuery
-} = userApi;
+export const { useGetAllUsersQuery, useAdminAnalyticsQuery, useTransactionStatisticsQuery } = userApi;

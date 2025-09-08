@@ -28,7 +28,6 @@ import {
   Table,
   TableBody,
   TableCaption,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
@@ -37,12 +36,44 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { DatePickerFrom } from "@/utils/DatePickerFrom";
+import { DatePickerTo } from "@/utils/DatePickerTo";
+import { useTransactionStatisticsQuery } from "@/redux/features/admin/admin.api";
 
 export default function TransactionStatPage() {
+  const sevenDaysAgo = new Date();
+  const currDate = new Date();
+  sevenDaysAgo.setDate(new Date().getDate() - 7);
+  const today = sevenDaysAgo.toISOString().slice(0, 10);
+  const [fromDate, setFromDate] = useState<Date | undefined>(new Date(today));
+  const [toDate, setToDate] = useState<Date | undefined>(new Date(currDate));
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState<string[]>(["COMPLETED"]);
+  const [selectedType, setSelectedType] = useState<string[]>(["USER_CASH_OUT"]);
+  const [selectedUsers, setSelectedUsers] = useState<string[]>([
+    "USER",
+    "AGENT",
+  ]);
+  const [page, setPage] = useState(1);
+  const totalPage = 2;
+  const { data, isLoading } = useTransactionStatisticsQuery({
+    selectedStatus,
+    selectedType,
+    selectedUsers,
+    fromDate: fromDate?.toISOString(),
+    toDate: toDate?.toISOString(),
+  });
+
+  console.log(data);
   const statusOptions = [
     { label: "Completed", value: "COMPLETED" },
     { label: "Pending", value: "PENDING" },
     { label: "Reversed", value: "REVERSED" },
+  ];
+
+  const userOptions = [
+    { label: "User", value: "USER" },
+    { label: "Agent", value: "AGENT" },
   ];
 
   const transactionTypes = [
@@ -53,11 +84,6 @@ export default function TransactionStatPage() {
     { label: "Agent Send Money", value: "AGENT_SEND_MONEY" },
   ];
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
-  const [selectedType, setSelectedType] = useState<string[]>(["USER_CASH_OUT"]);
-  const [page, setPage] = useState(1);
-  const totalPage = 2;
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       console.log(searchTerm);
@@ -78,6 +104,13 @@ export default function TransactionStatPage() {
     } else setSelectedStatus([...selectedStatus, data]);
   };
 
+  const handleSelectedUsers = (data: string) => {
+    if (selectedUsers.includes(data)) {
+      const updatedStatus = selectedUsers.filter((item) => item !== data);
+      setSelectedUsers(updatedStatus);
+    } else setSelectedUsers([...selectedUsers, data]);
+  };
+
   return (
     <div>
       <div className="md:grid grid-cols-4 md:gap-3">
@@ -89,8 +122,12 @@ export default function TransactionStatPage() {
               <CardAction></CardAction>
             </CardHeader>
             <CardContent>
-              <Accordion type="multiple" className="w-full">
-                <AccordionItem value="item-1">
+              <Accordion
+                type="multiple"
+                className="w-full"
+                defaultValue={["item-4"]}
+              >
+                <AccordionItem value="item-4">
                   <AccordionTrigger className="py-0 pb-1">
                     Filter Options
                   </AccordionTrigger>
@@ -107,6 +144,47 @@ export default function TransactionStatPage() {
                       className="w-full"
                       defaultValue={["item-3", "item-2"]}
                     >
+                      <AccordionItem value="item-3">
+                        <AccordionTrigger className="py-2 pb-4">
+                          Date
+                        </AccordionTrigger>
+                        <AccordionContent className="flex flex-col gap-4 text-balance">
+                          <DatePickerFrom
+                            title="From"
+                            fromDate={fromDate}
+                            setFromDate={setFromDate}
+                            after={toDate as Date}
+                          />
+                          <DatePickerTo
+                            title="To"
+                            toDate={toDate}
+                            setToDate={setToDate}
+                            before={fromDate as Date}
+                          />
+                        </AccordionContent>
+                      </AccordionItem>
+                      <AccordionItem value="item-2">
+                        <AccordionTrigger className="py-2 pb-4 font-medium">
+                          Role
+                        </AccordionTrigger>
+                        <AccordionContent className="flex flex-col gap-4 text-balance">
+                          {userOptions.map((opt) => (
+                            <div
+                              key={opt.label}
+                              className="flex gap-2 items-center  hover:cursor-pointer"
+                            >
+                              <Checkbox
+                                id={opt.label}
+                                checked={selectedUsers.includes(opt.value)}
+                                onCheckedChange={() =>
+                                  handleSelectedUsers(opt.value)
+                                }
+                              />
+                              <Label htmlFor={opt.label}>{opt.label}</Label>
+                            </div>
+                          ))}
+                        </AccordionContent>
+                      </AccordionItem>
                       <AccordionItem value="item-2">
                         <AccordionTrigger className="py-2 pb-4 font-medium">
                           Status
@@ -114,17 +192,17 @@ export default function TransactionStatPage() {
                         <AccordionContent className="flex flex-col gap-4 text-balance">
                           {statusOptions.map((opt) => (
                             <div
-                              key={opt.id}
+                              key={opt.label}
                               className="flex gap-2 items-center  hover:cursor-pointer"
                             >
                               <Checkbox
-                                id={opt.id}
+                                id={opt.label}
                                 checked={selectedStatus.includes(opt.value)}
                                 onCheckedChange={() =>
                                   handleStatusChanged(opt.value)
                                 }
                               />
-                              <Label htmlFor={opt.id}>{opt.label}</Label>
+                              <Label htmlFor={opt.label}>{opt.label}</Label>
                             </div>
                           ))}
                         </AccordionContent>
