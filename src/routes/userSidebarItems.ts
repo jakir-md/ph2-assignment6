@@ -1,9 +1,11 @@
 import { lazy } from "react";
-const AnalyticsPage = lazy(() => import("@/pages/user/AnalyticsPage"));
+const AnalyticsPage = lazy(() => import("@/pages/user/UserAnalyticsPage"));
 const CashInPage = lazy(() => import("@/pages/user/CashInPage"));
 const SendMoneyPage = lazy(() => import("@/pages/user/SendMoneyPage"));
 const CashOutPage = lazy(() => import("@/pages/user/CashOutPage"));
 const TransactionPage = lazy(() => import("@/pages/user/TransactionPage"));
+const VerifyWithKYCPage = lazy(() => import("@/pages/VerifyWithKYCPage"));
+const UpdateProfilePage = lazy(() => import("@/pages/user/UpdateProfilePage"));
 export const userSidebarItems = [
   {
     title: "Dashboard",
@@ -11,7 +13,7 @@ export const userSidebarItems = [
     items: [
       {
         title: "Overview",
-        url: "/user/overview",
+        url: "/user/dashboard/overview",
         component: AnalyticsPage,
       },
     ],
@@ -22,17 +24,17 @@ export const userSidebarItems = [
     items: [
       {
         title: "Cash In",
-        url: "/user/cash-in",
+        url: "/user/dashboard/cash-in",
         component: CashInPage,
       },
       {
         title: "Send Money",
-        url: "/user/send-money",
+        url: "/user/dashboard/send-money",
         component: SendMoneyPage,
       },
       {
         title: "Cash out",
-        url: "/user/cash-out",
+        url: "/user/dashboard/cash-out",
         component: CashOutPage,
       },
     ],
@@ -43,8 +45,24 @@ export const userSidebarItems = [
     items: [
       {
         title: "View Transactions",
-        url: "/user/all-transactions",
+        url: "/user/dashboard/all-transactions",
         component: TransactionPage,
+      },
+    ],
+  },
+  {
+    title: "Profile",
+    url: "#",
+    items: [
+      {
+        title: "KYC Verification",
+        url: "/user/dashboard/verify-with-kyc",
+        component: VerifyWithKYCPage,
+      },
+      {
+        title: "Update Profile",
+        url: "/user/dashboard/update-profile",
+        component: UpdateProfilePage,
       },
     ],
   },

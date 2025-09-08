@@ -39,8 +39,13 @@ export function LoginForm({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error(error);
-      if (error.data.message === "User Not Found") {
+      if (
+        error.data.message === "User Not Found" ||
+        error.data.message === "Password Not Matched."
+      ) {
         toast.error("Invalid Credentials", { id: toastId });
+      } else {
+        toast.error(`${error.data.message}`, { id: toastId });
       }
     }
   };

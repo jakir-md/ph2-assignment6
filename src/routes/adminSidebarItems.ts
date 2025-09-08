@@ -1,3 +1,15 @@
+import { lazy } from "react";
+
+const AnalyticsPage = lazy(() => import("@/pages/admin/AdminAnalyticsPage"));
+const AccountsPage = lazy(() => import("@/pages/admin/AccountsPage"));
+const WalletsPage = lazy(() => import("@/pages/admin/WalletsPage"));
+const TransactionStatPage = lazy(
+  () => import("@/pages/admin/TransactionStatPage")
+);
+const SystemParameterPage = lazy(
+  () => import("@/pages/admin/SystemParameterPage")
+);
+
 export const adminSidebarItems = [
   {
     title: "Dashboard",
@@ -5,7 +17,8 @@ export const adminSidebarItems = [
     items: [
       {
         title: "Overview",
-        url: "/admin/overview",
+        url: "/admin/dashboard/overview",
+        component: AnalyticsPage,
       },
     ],
   },
@@ -14,12 +27,14 @@ export const adminSidebarItems = [
     url: "#",
     items: [
       {
-        title: "Users",
-        url: "/admin/users",
+        title: "Accounts",
+        url: "/admin/dashboard/accounts",
+        component: AccountsPage,
       },
       {
-        tittle: "Agents",
-        url: "/admin/agents",
+        title: "Wallets",
+        url: "/admin/dashboard/wallets",
+        component: WalletsPage,
       },
     ],
   },
@@ -29,7 +44,8 @@ export const adminSidebarItems = [
     items: [
       {
         title: "View Transactions",
-        url: "/admin/all-transactions",
+        url: "/admin/dashboard/transactions",
+        component: TransactionStatPage,
       },
     ],
   },
@@ -39,7 +55,8 @@ export const adminSidebarItems = [
     items: [
       {
         title: "Update Parameter",
-        url: "/admin/update-parameter",
+        url: "/admin/dashboard/update-parameter",
+        component: SystemParameterPage,
       },
     ],
   },

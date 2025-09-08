@@ -24,8 +24,7 @@ const navigationLinks = [
 ];
 
 export default function Component() {
-  const { data } = useGetMeQuery(undefined);
-  console.log("new data", data?.data);
+  const { data, isLoading } = useGetMeQuery(undefined);
   return (
     <header className="border-b px-4 md:px-6">
       <div className="flex h-16 items-center justify-between gap-4">
@@ -76,6 +75,16 @@ export default function Component() {
                       </NavigationMenuLink>
                     </NavigationMenuItem>
                   ))}
+                  {!isLoading && data?.data.email && (
+                    <NavigationMenuItem className="w-full">
+                      <NavigationMenuLink
+                        href={`/${data?.data.role.toLowerCase()}/dashboard`}
+                        className="py-1.5"
+                      >
+                        {"Dashboard"}
+                      </NavigationMenuLink>
+                    </NavigationMenuItem>
+                  )}
                 </NavigationMenuList>
               </NavigationMenu>
             </PopoverContent>
@@ -98,6 +107,16 @@ export default function Component() {
                     </NavigationMenuLink>
                   </NavigationMenuItem>
                 ))}
+                {!isLoading && data?.data.email && (
+                  <NavigationMenuItem className="w-full">
+                    <NavigationMenuLink
+                      href={`/${data?.data.role.toLowerCase()}/dashboard`}
+                      className="py-1.5 text-muted-foreground hover:text-primary font-medium"
+                    >
+                      {"Dashboard"}
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                )}
               </NavigationMenuList>
             </NavigationMenu>
           </div>
