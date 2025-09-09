@@ -6,6 +6,7 @@ import {
   useGetMeQuery,
   useUpdateWalletMutation,
 } from "@/redux/features/user/user.api";
+import { toast } from "sonner";
 
 export default function WalletSwitch({
   onChange,
@@ -20,16 +21,24 @@ export default function WalletSwitch({
   const [updateStatus] = useUpdateWalletMutation(undefined);
 
   const handleOnClick = async () => {
+    const toastId = toast.loading("Updating Wallet Status..");
     onChange(!checked);
     const statusInfo = { status: "INACTIVE" };
     if (!checked) {
       statusInfo.status = "ACTIVE";
     }
-    const result = await updateStatus({
-      statusInfo,
-      phone: userInfo?.data.phone,
-    });
-    console.log(result);
+    try {
+      const result = await updateStatus({
+        phone: userInfo?.data.phone,
+        statusInfo,
+      }).unwrap();
+      if (result.success) {
+        toast.success("Wallet Status Updated Successfully.", { id: toastId });
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      toast.error(`Failed: ${error.message}`);
+    }
   };
 
   return (

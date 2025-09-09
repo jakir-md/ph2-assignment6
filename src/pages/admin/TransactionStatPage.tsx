@@ -28,6 +28,7 @@ import {
   Table,
   TableBody,
   TableCaption,
+  TableCell,
   TableHead,
   TableHeader,
   TableRow,
@@ -39,6 +40,7 @@ import { Label } from "@/components/ui/label";
 import { DatePickerFrom } from "@/utils/DatePickerFrom";
 import { DatePickerTo } from "@/utils/DatePickerTo";
 import { useTransactionStatisticsQuery } from "@/redux/features/admin/admin.api";
+import { DailyTransactionStatChart } from "@/components/modules/admin/DailyTransactionStatChart";
 
 export default function TransactionStatPage() {
   const sevenDaysAgo = new Date();
@@ -49,20 +51,32 @@ export default function TransactionStatPage() {
   const [toDate, setToDate] = useState<Date | undefined>(new Date(currDate));
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedStatus, setSelectedStatus] = useState<string[]>(["COMPLETED"]);
-  const [selectedType, setSelectedType] = useState<string[]>(["USER_CASH_OUT"]);
+  const [selectedType, setSelectedType] = useState<string[]>([
+    "USER_CASH_OUT",
+    "USER_CASH_IN",
+    "USER_ADD_MONEY",
+    "USER_SEND_MONEY",
+    "AGENT_SEND_MONEY",
+  ]);
   const [selectedUsers, setSelectedUsers] = useState<string[]>([
     "USER",
     "AGENT",
   ]);
   const [page, setPage] = useState(1);
   const totalPage = 2;
-  const { data, isLoading } = useTransactionStatisticsQuery({
-    selectedStatus,
-    selectedType,
-    selectedUsers,
-    fromDate: fromDate?.toISOString(),
-    toDate: toDate?.toISOString(),
-  });
+  const { data, isLoading } = useTransactionStatisticsQuery(
+    {
+      selectedStatus,
+      selectedType,
+      selectedUsers,
+      searchTerm,
+      fromDate: fromDate?.toISOString(),
+      toDate: toDate?.toISOString(),
+    },
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  );
 
   console.log(data);
   const statusOptions = [
@@ -111,6 +125,11 @@ export default function TransactionStatPage() {
     } else setSelectedUsers([...selectedUsers, data]);
   };
 
+  console.log(data?.data[0]?.byDay);
+  console.log(data?.data[0]?.overAll);
+  console.log(data?.data[0]?.transactions);
+  console.log("fromDate", fromDate);
+  console.log("to", toDate);
   return (
     <div>
       <div className="md:grid grid-cols-4 md:gap-3">
@@ -238,7 +257,13 @@ export default function TransactionStatPage() {
           </Card>
         </div>
         <div className="w-full col-span-3 rounded-md max-w-3xl">
-          <Card className="rounded-md max-w-3xl inset-0 mx-auto">
+          {!isLoading && (
+            <DailyTransactionStatChart
+              overAllData={data?.data[0]?.overAll[0]}
+              chartData={data?.data[0]?.byDay}
+            />
+          )}
+          <Card className="mt-4 rounded-md max-w-3xl inset-0 mx-auto">
             <CardHeader>
               <CardTitle className="text-center">
                 {"Recent Transactions"}
@@ -251,60 +276,53 @@ export default function TransactionStatPage() {
                 <TableCaption></TableCaption>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-[100px]">Phone</TableHead>
+                    <TableHead>From</TableHead>
+                    <TableHead>To</TableHead>
                     <TableHead>Type</TableHead>
                     <TableHead>Status</TableHead>
-                    <TableHead>TNX Id</TableHead>
+                    <TableHead>Tnx Id</TableHead>
                     <TableHead>Charge</TableHead>
+                    <TableHead>Comission</TableHead>
+                    <TableHead>Revenue</TableHead>
                     <TableHead className="text-right">Amount</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {/* {transactionInfo?.data.map(
+                  {data?.data[0]?.transactions.map(
                     (item: {
-                      toId: { phone: string };
-                      fromId: { phone: string };
+                      fromPhone: string;
+                      toPhone: string;
                       status: string;
                       transactionId: string;
-                      amount: string;
-                      userCharge: string;
+                      amount: number;
+                      userCharge: number;
+                      agentComission: number;
                       transactionType: string;
-                      toPhone: string;
+                      systemRevenue: number;
                     }) => (
                       <TableRow>
                         <TableCell className="font-medium">
-                          {item?.toId?.phone === userInfo?.data.phone
-                            ? item?.fromId?.phone
-                            : item?.toId?.phone || item.toPhone}
+                          {item.fromPhone}
                         </TableCell>
                         <TableCell className="flex items-center justify-between gap-1">
-                          {item.transactionType.split("_").slice(1).join("_")}
-                          {item?.toId?.phone === userInfo?.data.phone ? (
-                            <h1 className="text-white bg-green-500 rounded-full flex items-center justify-center text-center text-xs h-5 w-8">
-                              IN
-                            </h1>
-                          ) : (
-                            <h1 className="text-white bg-red-500 rounded-full flex items-center justify-center text-center text-xs h-5 w-8">
-                              OUT
-                            </h1>
-                          )}
+                          {item.toPhone}
                         </TableCell>
                         <TableCell>
                           <div className="flex items-center gap-1">
-                            {item.status}
+                            {item.transactionType.split("_").slice(1).join("_")}
                           </div>
                         </TableCell>
+                        <TableCell>{item.status}</TableCell>
                         <TableCell>{item.transactionId}</TableCell>
                         <TableCell>{item.userCharge}</TableCell>
-                        <TableCell className="text-right">
-                          {userInfo?.data.phone === item?.toId?.phone
-                            ? "+"
-                            : "-"}{" "}
-                          {item.amount}
+                        <TableCell>
+                          {item.agentComission ? item.agentComission : "N/A"}
                         </TableCell>
+                        <TableCell>{item.systemRevenue}</TableCell>
+                        <TableCell>{item.amount}</TableCell>
                       </TableRow>
                     )
-                  )} */}
+                  )}
                 </TableBody>
               </Table>
             </CardContent>

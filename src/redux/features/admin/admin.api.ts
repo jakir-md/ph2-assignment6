@@ -29,10 +29,11 @@ export const userApi = baseApi.injectEndpoints({
         selectedUsers,
         selectedStatus,
         selectedType,
+        searchTerm,
         fromDate,
         toDate,
       }) => ({
-        url: `/stat/transactionStat?selectedUsers=${selectedUsers}&fromDate=${fromDate}&selectedStatus=${selectedStatus}&selectedType=${selectedType}&toDate=${toDate}`,
+        url: `/stat/transactionStat?searchTerm=${searchTerm}&selectedUsers=${selectedUsers}&fromDate=${fromDate}&selectedStatus=${selectedStatus}&selectedType=${selectedType}&toDate=${toDate}`,
         method: "GET",
         data: null,
       }),
@@ -40,4 +41,8 @@ export const userApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllUsersQuery, useAdminAnalyticsQuery, useTransactionStatisticsQuery } = userApi;
+export const {
+  useGetAllUsersQuery,
+  useAdminAnalyticsQuery,
+  useTransactionStatisticsQuery,
+} = userApi;

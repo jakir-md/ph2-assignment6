@@ -35,7 +35,9 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 export default function UserAnalyticsPage() {
-  const { data: userInfo } = useGetMeQuery(undefined);
+  const { data: userInfo } = useGetMeQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
   const [checked, setChecked] = useState<boolean>(false);
   const [limit] = useState(6);
   const [page, setPage] = useState(1);
@@ -99,8 +101,8 @@ export default function UserAnalyticsPage() {
                   <TableHead className="w-[100px]">Phone</TableHead>
                   <TableHead>Type</TableHead>
                   <TableHead>Status</TableHead>
-                  <TableHead>TNX Id</TableHead>
-                  <TableHead>Charge</TableHead>
+                  <TableHead>Tnx Id</TableHead>
+                  <TableHead>{userInfo?.data.role === "USER" ? "Charge": "Comission"}</TableHead>
                   <TableHead className="text-right">Amount</TableHead>
                 </TableRow>
               </TableHeader>
@@ -115,6 +117,7 @@ export default function UserAnalyticsPage() {
                     userCharge: string;
                     transactionType: string;
                     toPhone: string;
+                    agentComission:string;
                   }) => (
                     <TableRow>
                       <TableCell className="font-medium">
@@ -140,7 +143,7 @@ export default function UserAnalyticsPage() {
                         </div>
                       </TableCell>
                       <TableCell>{item.transactionId}</TableCell>
-                      <TableCell>{item.userCharge}</TableCell>
+                      <TableCell>{userInfo?.data.role === "USER" ? item.userCharge : item.agentComission}</TableCell>
                       <TableCell className="text-right">
                         {userInfo?.data.phone === item?.toId?.phone ? "+" : "-"}{" "}
                         {item.amount}
@@ -156,20 +159,38 @@ export default function UserAnalyticsPage() {
               <Pagination>
                 <PaginationContent>
                   <PaginationItem>
-                    <PaginationPrevious onClick={()=>setPage(prev => prev-1)} className={page === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"} />
+                    <PaginationPrevious
+                      onClick={() => setPage((prev) => prev - 1)}
+                      className={
+                        page === 1
+                          ? "pointer-events-none opacity-50"
+                          : "cursor-pointer"
+                      }
+                    />
                   </PaginationItem>
                   {Array.from(
                     { length: totalPage },
                     (_, index) => index + 1
                   ).map((item) => (
-                    <PaginationItem className="hover:cursor-pointer" key={item} onClick={() => setPage(item)}>
+                    <PaginationItem
+                      className="hover:cursor-pointer"
+                      key={item}
+                      onClick={() => setPage(item)}
+                    >
                       <PaginationLink isActive={item === page}>
                         {item}
                       </PaginationLink>
                     </PaginationItem>
                   ))}
                   <PaginationItem>
-                    <PaginationNext onClick={()=>setPage(prev => prev+1)} className={page === totalPage ? "pointer-events-none opacity-50" : "cursor-pointer"} />
+                    <PaginationNext
+                      onClick={() => setPage((prev) => prev + 1)}
+                      className={
+                        page === totalPage
+                          ? "pointer-events-none opacity-50"
+                          : "cursor-pointer"
+                      }
+                    />
                   </PaginationItem>
                 </PaginationContent>
               </Pagination>

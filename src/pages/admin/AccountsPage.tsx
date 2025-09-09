@@ -147,7 +147,7 @@ export default function AccountsPage() {
     try {
       const result = await updateWallet({
         phone,
-        payload: { status },
+        statusInfo: { status },
       }).unwrap();
 
       if (result.success) {

@@ -53,10 +53,10 @@ export const userApi = baseApi.injectEndpoints({
       }),
     }),
     updateWallet: builder.mutation({
-      query: ({ phone, payload }) => ({
+      query: ({ phone, statusInfo }) => ({
         url: `/wallet/update-status/${phone}`,
         method: "PATCH",
-        data: payload,
+        data: statusInfo,
       }),
     }),
   }),
