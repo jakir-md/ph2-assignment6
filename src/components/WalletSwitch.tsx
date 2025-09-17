@@ -1,5 +1,4 @@
-import { useId } from "react";
-
+import {useId } from "react";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import {
@@ -15,14 +14,16 @@ export default function WalletSwitch({
   onChange: (val: boolean) => void;
   checked: boolean;
 }) {
+  console.log("checked inside switch", checked);
   const id = useId();
-  const { data: userInfo } = useGetMeQuery(undefined);
+  const { data: userInfo } = useGetMeQuery(undefined, {refetchOnMountOrArgChange: true});
 
   const [updateStatus] = useUpdateWalletMutation(undefined);
 
   const handleOnClick = async () => {
-    const toastId = toast.loading("Updating Wallet Status..");
     onChange(!checked);
+    console.log("handle clicked");
+    const toastId = toast.loading("Updating Wallet Status..");
     const statusInfo = { status: "INACTIVE" };
     if (!checked) {
       statusInfo.status = "ACTIVE";

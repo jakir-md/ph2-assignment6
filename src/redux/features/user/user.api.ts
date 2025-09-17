@@ -15,7 +15,7 @@ export const userApi = baseApi.injectEndpoints({
         method: "GET",
         data: null,
       }),
-      providesTags: ["AUTH"],
+      providesTags: ["AUTH", "WALLET"],
     }),
     sendMoney: builder.mutation({
       query: (sendMoneInfo) => ({
@@ -38,9 +38,23 @@ export const userApi = baseApi.injectEndpoints({
         data: formData,
       }),
     }),
+    cashIn: builder.mutation({
+      query: ({ formInfo, phone }) => ({
+        url: `/wallet/add-money-by-agent/${phone}`,
+        method: "POST",
+        data: formInfo,
+      }),
+    }),
     getTransactionHistory: builder.query({
-      query: ({ page, limit }) => ({
-        url: `/transaction/user-history?page=${page}&limit=${limit}`,
+      query: ({
+        page,
+        limit,
+        fromDate,
+        toDate,
+        selectedStatus,
+        searchTerm,
+      }) => ({
+        url: `/transaction/user-history?page=${page}&limit=${limit}&fromDate=${fromDate}&toDate=${toDate}&selectedStatus=${selectedStatus}&searchTerm=${searchTerm}`,
         method: "GET",
         data: null,
       }),
@@ -58,6 +72,21 @@ export const userApi = baseApi.injectEndpoints({
         method: "PATCH",
         data: statusInfo,
       }),
+      invalidatesTags: ["WALLET"],
+    }),
+    agentComission: builder.query({
+      query: () => ({
+        url: "/stat/agentComission",
+        method: "GET",
+        data: null,
+      }),
+    }),
+    addMoney: builder.mutation({
+      query: ({ payload, phone }) => ({
+        url: `/wallet/add-money/${phone}`,
+        method: "POST",
+        data: payload,
+      }),
     }),
   }),
 });
@@ -71,4 +100,7 @@ export const {
   useGetTransactionHistoryQuery,
   useUpdateUserMutation,
   useUpdateWalletMutation,
+  useCashInMutation,
+  useAgentComissionQuery,
+  useAddMoneyMutation,
 } = userApi;

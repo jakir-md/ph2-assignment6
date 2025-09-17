@@ -19,7 +19,7 @@ export default function DashboardLayout() {
             className="mr-2 data-[orientation=vertical]:h-4"
           />
         </header>
-        <div className="flex flex-1 flex-col gap-4 px-4 md:py-4">
+        <div className="flex flex-1 flex-col gap-4 px-4">
           <Outlet></Outlet>
         </div>
       </SidebarInset>

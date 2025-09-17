@@ -13,6 +13,7 @@ import { agentSideBarItems } from "./agentSidebarItems";
 import { adminSidebarItems } from "./adminSidebarItems";
 import UserAnalyticsPage from "@/pages/user/UserAnalyticsPage";
 import AdminAnalyticsPage from "@/pages/admin/AdminAnalyticsPage";
+import AgentAnalyticsPage from "@/pages/agent/AgentAnalyticsPage";
 
 export const router = createBrowserRouter([
   {
@@ -40,7 +41,10 @@ export const router = createBrowserRouter([
   {
     path: "/agent/dashboard",
     Component: withAuth(DashboardLayout, Role.AGENT as string),
-    children: [...generateRoutes(agentSideBarItems)],
+    children: [
+      { index: true, Component: AgentAnalyticsPage },
+      ...generateRoutes(agentSideBarItems),
+    ],
   },
   {
     path: "/admin/dashboard",

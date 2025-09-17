@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 import { CalendarIcon } from "lucide-react";
 
@@ -12,6 +10,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import type { UnknownAction } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
 
 function formatDate(date: Date | undefined) {
   if (!date) {
@@ -36,16 +36,17 @@ export function DatePickerTo({
   title,
   toDate,
   setToDate,
-  before
+  before,
 }: {
   title: string;
-  toDate: Date | undefined;
-  setToDate: (date: Date | undefined) => void;
-  before: Date
+  toDate: string;
+  setToDate: (date: string) => UnknownAction;
+  before: Date;
 }) {
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
-  const [month, setMonth] = React.useState<Date | undefined>(toDate);
-  const [value, setValue] = React.useState(formatDate(toDate));
+  const [month, setMonth] = React.useState<Date | undefined>(new Date(toDate));
+  const [value, setValue] = React.useState(formatDate(new Date(toDate)));
   return (
     <div className="flex flex-col gap-3">
       <Label htmlFor="date" className="px-1 py-0">
@@ -61,7 +62,11 @@ export function DatePickerTo({
             const date = new Date(e.target.value);
             setValue(e.target.value);
             if (isValidDate(date)) {
-              setToDate(date);
+              let tempDate = new Date().toISOString();
+              if (date) {
+                tempDate = date.toISOString();
+              }
+              dispatch(setToDate(tempDate));
               setMonth(date);
             }
           }}
@@ -91,12 +96,18 @@ export function DatePickerTo({
           >
             <Calendar
               mode="single"
-              selected={toDate}
+              selected={
+                new Date(new Date().setDate(new Date(toDate).getDate() - 1))
+              }
               captionLayout="dropdown"
               month={month}
               onMonthChange={setMonth}
               onSelect={(date) => {
-                setToDate(date);
+                let tempDate = new Date().toISOString();
+                if (date) {
+                  tempDate = date.toISOString();
+                }
+                dispatch(setToDate(tempDate));
                 setValue(formatDate(date));
                 setOpen(false);
               }}

@@ -10,6 +10,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useDispatch } from "react-redux";
+import type { UnknownAction } from "@reduxjs/toolkit";
 
 function formatDate(date: Date | undefined) {
   if (!date) {
@@ -34,16 +36,19 @@ export function DatePickerFrom({
   title,
   fromDate,
   setFromDate,
-  after
+  after,
 }: {
   title: string;
-  after: Date,
-  setFromDate: (date: Date | undefined) => void;
-  fromDate: Date | undefined;
+  after: Date;
+  setFromDate: (date: string | undefined) => UnknownAction;
+  fromDate: string;
 }) {
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
-  const [month, setMonth] = React.useState<Date | undefined>(fromDate);
-  const [value, setValue] = React.useState(formatDate(fromDate));
+  const [month, setMonth] = React.useState<Date | undefined>(
+    new Date(fromDate)
+  );
+  const [value, setValue] = React.useState(formatDate(new Date(fromDate)));
 
   return (
     <div className="flex flex-col gap-3">
@@ -60,7 +65,11 @@ export function DatePickerFrom({
             const date = new Date(e.target.value);
             setValue(e.target.value);
             if (isValidDate(date)) {
-              setFromDate(date);
+              let tempDate = new Date().toISOString();
+              if (date) {
+                tempDate = date.toISOString();
+              }
+              dispatch(setFromDate(tempDate));
               setMonth(date);
             }
           }}
@@ -90,12 +99,18 @@ export function DatePickerFrom({
           >
             <Calendar
               mode="single"
-              selected={fromDate}
+              selected={
+                new Date(new Date().setDate(new Date(fromDate).getDate() - 1))
+              }
               captionLayout="dropdown"
               month={month}
               onMonthChange={setMonth}
               onSelect={(date) => {
-                setFromDate(date);
+                let tempDate = new Date().toISOString();
+                if (date) {
+                  tempDate = date.toISOString();
+                }
+                dispatch(setFromDate(tempDate));
                 setValue(formatDate(date));
                 setOpen(false);
               }}

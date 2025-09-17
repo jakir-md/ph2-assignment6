@@ -6,9 +6,10 @@ import { useAdminAnalyticsQuery } from "@/redux/features/admin/admin.api";
 import { useState } from "react";
 
 export default function AdminAnalyticsPage() {
-  const [currentQuater, setCurrentQuater] = useState<string>("7,8,9");
+  const [currentQuater, setCurrentQuater] = useState<string>("7, 8,9");
   const { data, isLoading } = useAdminAnalyticsQuery({ currentQuater });
 
+  console.log("quater data",data);
   return (
     <div>
       {!isLoading && (
@@ -17,8 +18,10 @@ export default function AdminAnalyticsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <SubscribersChart subscriberInfo={data?.data.subscriberInfo} />
             <QuaterlyRevenue
-              quaterInfo={data?.data.quaterInfo}
+            role="admin"
+              quaterInfo={data?.data.quaterInfo[0]?.quaterWise}
               onChange={setCurrentQuater}
+              quaterTotalRevenue={data?.data.quaterInfo[0]?.overAll[0]?.totalAmount}
             />
           </div>
           <RegisteredUsersStat />

@@ -1,6 +1,6 @@
 import { baseApi } from "@/redux/baseApi";
 
-export const userApi = baseApi.injectEndpoints({
+export const adminApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllUsers: builder.query({
       query: ({
@@ -32,8 +32,10 @@ export const userApi = baseApi.injectEndpoints({
         searchTerm,
         fromDate,
         toDate,
+        limit,
+        page,
       }) => ({
-        url: `/stat/transactionStat?searchTerm=${searchTerm}&selectedUsers=${selectedUsers}&fromDate=${fromDate}&selectedStatus=${selectedStatus}&selectedType=${selectedType}&toDate=${toDate}`,
+        url: `/stat/transactionStat?limit=${limit}&page=${page}&searchTerm=${searchTerm}&selectedUsers=${selectedUsers}&fromDate=${fromDate}&selectedStatus=${selectedStatus}&selectedType=${selectedType}&toDate=${toDate}`,
         method: "GET",
         data: null,
       }),
@@ -45,4 +47,4 @@ export const {
   useGetAllUsersQuery,
   useAdminAnalyticsQuery,
   useTransactionStatisticsQuery,
-} = userApi;
+} = adminApi;

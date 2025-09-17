@@ -1,11 +1,13 @@
 import { lazy } from "react";
 const AnalyticsPage = lazy(() => import("@/pages/user/UserAnalyticsPage"));
-const CashInPage = lazy(() => import("@/pages/user/CashInPage"));
+const AddMoneyPage = lazy(() => import("@/pages/user/AddMoneyPage"));
 const SendMoneyPage = lazy(() => import("@/pages/user/SendMoneyPage"));
 const CashOutPage = lazy(() => import("@/pages/user/CashOutPage"));
-const TransactionPage = lazy(() => import("@/pages/user/TransactionPage"));
 const VerifyWithKYCPage = lazy(() => import("@/pages/VerifyWithKYCPage"));
 const UpdateProfilePage = lazy(() => import("@/pages/user/UpdateProfilePage"));
+const UserTransactionPage = lazy(
+  () => import("@/pages/user/UserTransactionPage")
+);
 export const userSidebarItems = [
   {
     title: "Dashboard",
@@ -23,9 +25,9 @@ export const userSidebarItems = [
     url: "#",
     items: [
       {
-        title: "Cash In",
-        url: "/user/dashboard/cash-in",
-        component: CashInPage,
+        title: "Add Money",
+        url: "/user/dashboard/add-money",
+        component: AddMoneyPage,
       },
       {
         title: "Send Money",
@@ -46,7 +48,7 @@ export const userSidebarItems = [
       {
         title: "View Transactions",
         url: "/user/dashboard/all-transactions",
-        component: TransactionPage,
+        component: UserTransactionPage,
       },
     ],
   },
