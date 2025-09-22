@@ -24,6 +24,13 @@ export const adminApi = baseApi.injectEndpoints({
         data: null,
       }),
     }),
+    registeredUsers: builder.query({
+      query: ({ fromDate, toDate }) => ({
+        url: `/stat/registeredUserStat?fromDate=${fromDate}&toDate=${toDate}`,
+        method: "GET",
+        data: null,
+      }),
+    }),
     transactionStatistics: builder.query({
       query: ({
         selectedUsers,
@@ -47,4 +54,5 @@ export const {
   useGetAllUsersQuery,
   useAdminAnalyticsQuery,
   useTransactionStatisticsQuery,
+  useRegisteredUsersQuery
 } = adminApi;

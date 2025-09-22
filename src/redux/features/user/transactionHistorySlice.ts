@@ -18,7 +18,7 @@ const initialState: TransactionHistoryState = {
   roles: ["USER", "AGENT"],
   transactionType: [
     "USER_CASH_OUT",
-    "AGENT_CASH_IN",
+    "USER_CASH_IN",
     "USER_ADD_MONEY",
     "USER_SEND_MONEY",
     "AGENT_SEND_MONEY",

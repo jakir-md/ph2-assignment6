@@ -48,7 +48,7 @@ export default function TransactionFilter({ role }: { role: string }) {
   ];
 
   const typesOptions = [
-    { label: "Cash In", value: "AGENT_CASH_IN" },
+    { label: "Cash In", value: "USER_CASH_IN" },
     { label: "Cash Out", value: "USER_CASH_OUT" },
     { label: "Add Money", value: "USER_ADD_MONEY" },
     { label: "User Send Money", value: "USER_SEND_MONEY" },

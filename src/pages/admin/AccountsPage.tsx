@@ -239,7 +239,7 @@ export default function AccountsPage() {
             <CardFooter className="flex-col gap-2"></CardFooter>
           </Card>
         </div>
-        <div className="w-full col-span-3 rounded-md max-w-3xl">
+        <div className="w-full col-span-3 mb-5 rounded-md max-w-3xl">
           <Card className="rounded-md">
             <CardHeader>
               <CardTitle className="text-center">All Accounts</CardTitle>
@@ -261,9 +261,9 @@ export default function AccountsPage() {
                 <TableBody>
                   {userInfo?.data.map((user) => (
                     <TableRow key={user._id}>
-                      <TableCell className="font-medium">
+                      <TableCell className="font-medium w-[300px]">
                         <div className="flex gap-1 items-center">
-                          <div className="rounded-xl">
+                          <div className="rounded-xl h-13 w-13">
                             <img
                               src={user.picture}
                               className="h-13 w-13 rounded-xl"
