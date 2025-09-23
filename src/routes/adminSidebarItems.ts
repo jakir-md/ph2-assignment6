@@ -2,7 +2,8 @@ import { lazy } from "react";
 
 const AnalyticsPage = lazy(() => import("@/pages/admin/AdminAnalyticsPage"));
 const AccountsPage = lazy(() => import("@/pages/admin/AccountsPage"));
-const WalletsPage = lazy(() => import("@/pages/admin/WalletsPage"));
+const UpdateProfile = lazy(() => import("@/pages/UpdateProfile"));
+const UpdatePassword = lazy(() => import("@/pages/UpdatePassword"));
 const TransactionStatPage = lazy(
   () => import("@/pages/admin/TransactionStatPage")
 );
@@ -31,11 +32,6 @@ export const adminSidebarItems = [
         url: "/admin/dashboard/accounts",
         component: AccountsPage,
       },
-      {
-        title: "Wallets",
-        url: "/admin/dashboard/wallets",
-        component: WalletsPage,
-      },
     ],
   },
   {
@@ -57,6 +53,22 @@ export const adminSidebarItems = [
         title: "Update Parameter",
         url: "/admin/dashboard/update-parameter",
         component: SystemParameterPage,
+      },
+    ],
+  },
+  {
+    title: "Profile",
+    url: "#",
+    items: [
+      {
+        title: "Update Profile",
+        url: "/admin/dashboard/update-profile",
+        component: UpdateProfile,
+      },
+      {
+        title: "Change Password",
+        url: "/admin/dashboard/change-password",
+        component: UpdatePassword,
       },
     ],
   },

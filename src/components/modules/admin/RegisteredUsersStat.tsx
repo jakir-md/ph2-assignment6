@@ -17,14 +17,11 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart";
-import {useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { DatePickerFrom } from "@/utils/DatePickerFrom";
-import {
-  setFromDate,
-  setToDate,
-} from "@/redux/features/user/transactionHistorySlice";
 import { DatePickerTo } from "@/utils/DatePickerTo";
 import { useRegisteredUsersQuery } from "@/redux/features/admin/admin.api";
+import { setFromDate, setToDate } from "@/redux/features/admin/adminSlice";
 
 export const description = "An interactive area chart";
 
@@ -44,31 +41,33 @@ const chartConfig = {
 
 export function RegisteredUsersStat() {
   const selector = useSelector;
-  const { fromDate, toDate } = selector((state: any) => state.trnxReducer);
+  const { fromDate, toDate } = selector(
+    (state: any) => state.adminAnalyticsReducer
+  );
 
   const { data } = useRegisteredUsersQuery({ fromDate, toDate });
   console.log(data);
   return (
-    <Card className="pt-0 rounded-md">
-      <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
+    <Card className="pt-0 rounded-md mb-5">
+      <CardHeader className="flex items-between gap-2 space-y-0 border-b py-5 md:flex-row flex-col">
         <div className="grid flex-1 gap-1">
-          <CardTitle>Area Chart - Interactive</CardTitle>
-          <CardDescription>
-            Showing total visitors for the last 3 months
-          </CardDescription>
+          <CardTitle>Registered Users</CardTitle>
+          <CardDescription>Showing total users</CardDescription>
         </div>
-        <DatePickerFrom
-          title="From"
-          fromDate={fromDate}
-          setFromDate={setFromDate}
-          after={new Date(toDate) as Date}
-        />
-        <DatePickerTo
-          title="To"
-          toDate={toDate}
-          setToDate={setToDate}
-          before={new Date(fromDate) as Date}
-        />
+        <div className="flex gap-2">
+          <DatePickerFrom
+            title="From"
+            fromDate={fromDate}
+            setFromDate={setFromDate}
+            after={new Date(toDate) as Date}
+          />
+          <DatePickerTo
+            title="To"
+            toDate={toDate}
+            setToDate={setToDate}
+            before={new Date(fromDate) as Date}
+          />
+        </div>
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         <ChartContainer

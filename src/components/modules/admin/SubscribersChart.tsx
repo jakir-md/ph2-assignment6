@@ -72,7 +72,7 @@ export function SubscribersChart({
             Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
           </div>
           <div className="text-muted-foreground leading-none">
-            Showing total visitors for the last 6 months
+            Showing total subscribers from January 2025
           </div>
         </CardFooter>
       </Card>

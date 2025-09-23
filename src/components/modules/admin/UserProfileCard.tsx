@@ -52,19 +52,19 @@ export default function UserProfileCard({ user }: { user: IUser }) {
         <div className="grid md:grid-cols-2 grid-cols-1 gap-1 md:gap-4">
           <div>
             <h4 className="font-semibold text-gray-700">Balance</h4>
-            <p>${user.walletId.balance.toFixed(2)}</p>
+            <p>${user.walletId?.balance.toFixed(2)}</p>
           </div>
           <div>
             <h4 className="font-semibold text-gray-700">Status</h4>
-            <p>{user.walletId.status}</p>
+            <p>{user.walletId?.status}</p>
           </div>
           <div>
             <h4 className="font-semibold text-gray-700">Wallet Phone</h4>
-            <p>{user.walletId.phone}</p>
+            <p>{user.walletId?.phone}</p>
           </div>
           <div>
             <h4 className="font-semibold text-gray-700">User ID</h4>
-            <p>{user.walletId.userId}</p>
+            <p>{user.walletId?.userId}</p>
           </div>
         </div>
       </div>

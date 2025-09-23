@@ -26,7 +26,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <Link
           to={"/"}
-          className="px-2 py-3 rounded-md hover:cursor-pointer hover:bg-gray-100 flex gap-3 items-center"
+          className="px-2 py-3 rounded-md hover:cursor-pointer hover:bg-secondary flex gap-3 items-center"
         >
           <div>
             <Logo />

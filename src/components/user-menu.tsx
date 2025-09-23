@@ -41,7 +41,7 @@ export default function UserMenu({ userInfo }: any) {
         <DropdownMenuContent className="max-w-64 rounded-sm" align="end">
           <DropdownMenuLabel className="flex min-w-0 flex-col">
             <span className="text-foreground truncate text-sm font-medium">
-              {`${userInfo.name.firstName} ${userInfo.name.lastName}`}
+              {`${userInfo.name}`}
             </span>
             <span className="text-muted-foreground truncate text-xs font-normal">
               {userInfo.email}

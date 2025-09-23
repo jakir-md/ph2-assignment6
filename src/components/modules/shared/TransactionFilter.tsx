@@ -84,7 +84,7 @@ export default function TransactionFilter({ role }: { role: string }) {
                 <Accordion
                   type="multiple"
                   className="w-full"
-                  defaultValue={["item-3", "item-2", "item-1", "item-4"]}
+                  defaultValue={["item-2", "item-1"]}
                 >
                   <AccordionItem value="item-1">
                     <AccordionTrigger className="py-2 pb-4">

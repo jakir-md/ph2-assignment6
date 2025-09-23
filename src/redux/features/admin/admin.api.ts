@@ -31,6 +31,21 @@ export const adminApi = baseApi.injectEndpoints({
         data: null,
       }),
     }),
+    updateUser: builder.mutation({
+      query: ({ userid, payload }) => ({
+        url: `/user/${userid}`,
+        method: "PATCH",
+        data: payload,
+      }),
+    }),
+    updateWallet: builder.mutation({
+      query: ({ phone, statusInfo }) => ({
+        url: `/wallet/update-status/${phone}`,
+        method: "PATCH",
+        data: statusInfo,
+      }),
+      invalidatesTags: ["WALLET"],
+    }),
     transactionStatistics: builder.query({
       query: ({
         selectedUsers,
@@ -54,5 +69,7 @@ export const {
   useGetAllUsersQuery,
   useAdminAnalyticsQuery,
   useTransactionStatisticsQuery,
-  useRegisteredUsersQuery
+  useRegisteredUsersQuery,
+  useUpdateUserMutation,
+  useUpdateWalletMutation,
 } = adminApi;

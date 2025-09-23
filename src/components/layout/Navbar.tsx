@@ -14,6 +14,7 @@ import {
 import Logo from "@/assets/icons/Logo";
 import { useGetMeQuery } from "@/redux/features/user/user.api";
 import { Link } from "react-router";
+import { ModeToggle } from "./ModeToggler";
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
@@ -122,7 +123,8 @@ export default function Component() {
           </div>
         </div>
         {/* Right side */}
-        <div>
+        <div className="flex gap-4">
+          <ModeToggle></ModeToggle>
           {data?.data ? (
             <UserMenu userInfo={data.data} />
           ) : (

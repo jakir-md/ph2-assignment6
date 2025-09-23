@@ -1,10 +1,12 @@
 import { lazy } from "react";
 const AnalyticsPage = lazy(() => import("@/pages/user/UserAnalyticsPage"));
+const UpdateProfile = lazy(() => import("@/pages/UpdateProfile"));
+const UpdatePin = lazy(() => import("@/pages/UpdatePin"));
+const UpdatePassword = lazy(() => import("@/pages/UpdatePassword"));
 const AddMoneyPage = lazy(() => import("@/pages/user/AddMoneyPage"));
 const SendMoneyPage = lazy(() => import("@/pages/user/SendMoneyPage"));
 const CashOutPage = lazy(() => import("@/pages/user/CashOutPage"));
 const VerifyWithKYCPage = lazy(() => import("@/pages/VerifyWithKYCPage"));
-const UpdateProfilePage = lazy(() => import("@/pages/user/UpdateProfilePage"));
 const UserTransactionPage = lazy(
   () => import("@/pages/user/UserTransactionPage")
 );
@@ -64,7 +66,17 @@ export const userSidebarItems = [
       {
         title: "Update Profile",
         url: "/user/dashboard/update-profile",
-        component: UpdateProfilePage,
+        component: UpdateProfile,
+      },
+      {
+        title: "Change Password",
+        url: "/user/dashboard/change-password",
+        component: UpdatePassword,
+      },
+      {
+        title: "Change Pin",
+        url: "/user/dashboard/change-pin",
+        component: UpdatePin,
       },
     ],
   },

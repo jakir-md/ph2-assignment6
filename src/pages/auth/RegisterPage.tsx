@@ -1,5 +1,6 @@
-import Logo from "@/assets/icons/Logo"
-import { RegisterForm } from "@/components/modules/auth/RegisterForm"
+import Logo from "@/assets/icons/Logo";
+import { RegisterForm } from "@/components/modules/auth/RegisterForm";
+import { Link } from "react-router";
 
 export default function RegisterPage() {
   return (
@@ -10,15 +11,15 @@ export default function RegisterPage() {
             <div className="text-primary-foreground flex size-6 items-center justify-center rounded-md">
               <Logo />
             </div>
-            DigiWallet Inc.
+            <Link to="/">DigiWallet Inc.</Link>
           </a>
         </div>
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
-            <RegisterForm/>
+            <RegisterForm />
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

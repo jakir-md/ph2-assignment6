@@ -59,21 +59,6 @@ export const userApi = baseApi.injectEndpoints({
         data: null,
       }),
     }),
-    updateUser: builder.mutation({
-      query: ({ userid, payload }) => ({
-        url: `/user/${userid}`,
-        method: "PATCH",
-        data: payload,
-      }),
-    }),
-    updateWallet: builder.mutation({
-      query: ({ phone, statusInfo }) => ({
-        url: `/wallet/update-status/${phone}`,
-        method: "PATCH",
-        data: statusInfo,
-      }),
-      invalidatesTags: ["WALLET"],
-    }),
     agentComission: builder.query({
       query: () => ({
         url: "/stat/agentComission",
@@ -88,6 +73,13 @@ export const userApi = baseApi.injectEndpoints({
         data: payload,
       }),
     }),
+   updateProfile: builder.mutation({
+      query: ({ userId, payload }) => ({
+        url: `/user/${userId}`,
+        method: "PATCH",
+        data: payload,
+      }),
+    }),
   }),
 });
 
@@ -98,9 +90,8 @@ export const {
   useSendMoneyMutation,
   useCashOutMutation,
   useGetTransactionHistoryQuery,
-  useUpdateUserMutation,
-  useUpdateWalletMutation,
   useCashInMutation,
   useAgentComissionQuery,
   useAddMoneyMutation,
+  useUpdateProfileMutation
 } = userApi;

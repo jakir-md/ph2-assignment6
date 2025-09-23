@@ -8,7 +8,9 @@ const AgentTransactionPage = lazy(
   () => import("@/pages/agent/AgentTransactionPage")
 );
 const VerifyWithKYCPage = lazy(() => import("@/pages/VerifyWithKYCPage"));
-const UpdateProfilePage = lazy(() => import("@/pages/user/UpdateProfilePage"));
+const UpdateProfile = lazy(() => import("@/pages/UpdateProfile"));
+const UpdatePin = lazy(() => import("@/pages/UpdatePin"));
+const UpdatePassword = lazy(() => import("@/pages/UpdatePassword"));
 const CashInPage = lazy(() => import("@/pages/agent/CashInPage"));
 export const agentSideBarItems = [
   {
@@ -61,7 +63,17 @@ export const agentSideBarItems = [
       {
         title: "Update Profile",
         url: "/agent/dashboard/update-profile",
-        component: UpdateProfilePage,
+        component: UpdateProfile,
+      },
+      {
+        title: "Change Password",
+        url: "/agent/dashboard/change-password",
+        component: UpdatePassword,
+      },
+      {
+        title: "Change Pin",
+        url: "/agent/dashboard/change-pin",
+        component: UpdatePin,
       },
     ],
   },

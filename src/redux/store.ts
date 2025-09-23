@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { baseApi } from "./baseApi";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import transactionHistoryReducer from "./features/user/transactionHistorySlice";
+import adminAnalyticsReducer from "./features/admin/adminSlice";
 export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
     trnxReducer: transactionHistoryReducer,
+    adminAnalyticsReducer: adminAnalyticsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(baseApi.middleware),

@@ -1,11 +1,9 @@
-import {useId } from "react";
+import { useId } from "react";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import {
-  useGetMeQuery,
-  useUpdateWalletMutation,
-} from "@/redux/features/user/user.api";
+import { useGetMeQuery } from "@/redux/features/user/user.api";
 import { toast } from "sonner";
+import { useUpdateWalletMutation } from "@/redux/features/admin/admin.api";
 
 export default function WalletSwitch({
   onChange,
@@ -16,7 +14,9 @@ export default function WalletSwitch({
 }) {
   console.log("checked inside switch", checked);
   const id = useId();
-  const { data: userInfo } = useGetMeQuery(undefined, {refetchOnMountOrArgChange: true});
+  const { data: userInfo } = useGetMeQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
 
   const [updateStatus] = useUpdateWalletMutation(undefined);
 
