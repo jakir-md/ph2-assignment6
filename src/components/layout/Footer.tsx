@@ -1,6 +1,7 @@
 import Logo from "@/assets/icons/Logo";
 import React from "react";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { Link } from "react-router";
 
 interface Footer7Props {
   logo?: {
@@ -39,7 +40,7 @@ const defaultSections = [
   {
     title: "Company",
     links: [
-      { name: "About", href: "#" },
+      { name: "About", href: "/about" },
       { name: "Team", href: "#" },
       { name: "Blog", href: "#" },
       { name: "Careers", href: "#" },
@@ -48,7 +49,7 @@ const defaultSections = [
   {
     title: "Resources",
     links: [
-      { name: "Help", href: "#" },
+      { name: "Contact", href: "/contact" },
       { name: "Sales", href: "#" },
       { name: "Advertise", href: "#" },
       { name: "Privacy", href: "#" },
@@ -70,15 +71,15 @@ const defaultLegalLinks = [
 
 export const Footer = ({
   logo = {
-    url: "https://www.shadcnblocks.com",
+    url: "/",
     src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg",
     alt: "logo",
-    title: "Shadcnblocks.com",
+    title: "DigiWallet",
   },
   sections = defaultSections,
-  description = "A collection of components for your startup business or side project.",
+  description = "Join thousands who trust DigiWallet for everyday payments.",
   socialLinks = defaultSocialLinks,
-  copyright = "© 2024 Shadcnblocks.com. All rights reserved.",
+  copyright = "© 2025 digiWallet.com. All rights reserved.",
   legalLinks = defaultLegalLinks,
 }: Footer7Props) => {
   return (
@@ -88,9 +89,9 @@ export const Footer = ({
           <div className="flex w-full flex-col justify-between gap-6 lg:items-start">
             {/* Logo */}
             <div className="flex items-center gap-2 lg:justify-start">
-              <a href={logo.url}>
+              <Link to={logo.url}>
                 <Logo/>
-              </a>
+              </Link>
               <h2 className="text-xl font-semibold">{logo.title}</h2>
             </div>
             <p className="text-muted-foreground max-w-[70%] text-sm">
@@ -135,7 +136,6 @@ export const Footer = ({
           </ul>
         </div>
       </div>
-      <Logo/>
     </section>
   );
 };

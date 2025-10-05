@@ -1,5 +1,7 @@
 import UserMenu from "@/components/user-menu";
 import { Button } from "@/components/ui/button";
+import "driver.js/dist/driver.css";
+
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -15,20 +17,35 @@ import Logo from "@/assets/icons/Logo";
 import { useGetMeQuery } from "@/redux/features/user/user.api";
 import { Link } from "react-router";
 import { ModeToggle } from "./ModeToggler";
+import { useEffect } from "react";
+import { startTour } from "./TourGuide";
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
-  { href: "#", label: "Home" },
-  { href: "#", label: "Features" },
-  { href: "#", label: "Pricing" },
-  { href: "#", label: "About" },
+  { href: "/", label: "Home" },
+  { href: "/features", label: "Features" },
 ];
 
 export default function Component() {
+
   const { data, isLoading } = useGetMeQuery(undefined);
+
+  useEffect(() => {
+    if (data) {
+      const tour = localStorage.getItem("tour");
+      if (tour !== "yes") {
+        localStorage.setItem("tour", "yes");
+        startTour();
+      }
+    }
+  }, [data]);
+
   return (
     <header className="border-b px-4 md:px-6">
-      <div className="flex h-16 items-center justify-between gap-4">
+      <div
+        id="pageHeader"
+        className="flex h-16 items-center justify-between gap-4"
+      >
         {/* Left side */}
         <div className="flex items-center gap-2">
           {/* Mobile menu trigger */}
@@ -70,14 +87,18 @@ export default function Component() {
               <NavigationMenu className="max-w-none *:w-full">
                 <NavigationMenuList className="flex-col items-start gap-0 md:gap-2">
                   {navigationLinks.map((link, index) => (
-                    <NavigationMenuItem key={index} className="w-full">
+                    <NavigationMenuItem
+                      id={`${link.label}`}
+                      key={index}
+                      className="w-full"
+                    >
                       <NavigationMenuLink href={link.href} className="py-1.5">
                         {link.label}
                       </NavigationMenuLink>
                     </NavigationMenuItem>
                   ))}
                   {!isLoading && data?.data.email && (
-                    <NavigationMenuItem className="w-full">
+                    <NavigationMenuItem  id="dashboard" className="w-full">
                       <NavigationMenuLink
                         href={`/${data?.data.role.toLowerCase()}/dashboard`}
                         className="py-1.5"
@@ -92,14 +113,14 @@ export default function Component() {
           </Popover>
           {/* Main nav */}
           <div className="flex items-center gap-6">
-            <a href="#" className="text-primary hover:text-primary/90">
+            <Link to="/" className="text-primary hover:text-primary/90">
               <Logo />
-            </a>
+            </Link>
             {/* Navigation menu */}
             <NavigationMenu className="max-md:hidden">
               <NavigationMenuList className="gap-2">
                 {navigationLinks.map((link, index) => (
-                  <NavigationMenuItem key={index}>
+                  <NavigationMenuItem id={`${link.label}`} key={index}>
                     <NavigationMenuLink
                       href={link.href}
                       className="text-muted-foreground hover:text-primary py-1.5 font-medium"
@@ -109,7 +130,7 @@ export default function Component() {
                   </NavigationMenuItem>
                 ))}
                 {!isLoading && data?.data.email && (
-                  <NavigationMenuItem className="w-full">
+                  <NavigationMenuItem id="dashboard" className="w-full">
                     <NavigationMenuLink
                       href={`/${data?.data.role.toLowerCase()}/dashboard`}
                       className="py-1.5 text-muted-foreground hover:text-primary font-medium"
@@ -128,7 +149,7 @@ export default function Component() {
           {data?.data ? (
             <UserMenu userInfo={data.data} />
           ) : (
-            <Button className="hover:cursor-pointer">
+            <Button id="#login" className="hover:cursor-pointer">
               <Link to="/login">Login</Link>
             </Button>
           )}

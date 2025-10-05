@@ -18,7 +18,7 @@ export const adminSidebarItems = [
     items: [
       {
         title: "Overview",
-        url: "/admin/dashboard/overview",
+        url: "/admin/dashboard",
         component: AnalyticsPage,
       },
     ],

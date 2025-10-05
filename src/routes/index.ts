@@ -11,9 +11,10 @@ import { createBrowserRouter } from "react-router";
 import { userSidebarItems } from "./userSidebarItems";
 import { agentSideBarItems } from "./agentSidebarItems";
 import { adminSidebarItems } from "./adminSidebarItems";
-import UserAnalyticsPage from "@/pages/user/UserAnalyticsPage";
-import AdminAnalyticsPage from "@/pages/admin/AdminAnalyticsPage";
-import AgentAnalyticsPage from "@/pages/agent/AgentAnalyticsPage";
+import AboutPage from "@/pages/AboutPage";
+import Contact from "@/pages/Contact";
+import NotFound from "@/pages/NotFound";
+import UnAuthorized from "@/pages/UnAuthorized";
 
 export const router = createBrowserRouter([
   {
@@ -28,31 +29,30 @@ export const router = createBrowserRouter([
         path: "/features",
         Component: Features,
       },
+      {
+        path: "/about",
+        Component: AboutPage,
+      },
+      {
+        path: "/contact",
+        Component: Contact,
+      },
     ],
   },
   {
     path: "/user/dashboard",
     Component: withAuth(DashboardLayout, Role.USER as string),
-    children: [
-      { index: true, Component: UserAnalyticsPage },
-      ...generateRoutes(userSidebarItems),
-    ],
+    children: [...generateRoutes(userSidebarItems)],
   },
   {
     path: "/agent/dashboard",
     Component: withAuth(DashboardLayout, Role.AGENT as string),
-    children: [
-      { index: true, Component: AgentAnalyticsPage },
-      ...generateRoutes(agentSideBarItems),
-    ],
+    children: [...generateRoutes(agentSideBarItems)],
   },
   {
     path: "/admin/dashboard",
     Component: withAuth(DashboardLayout, Role.ADMIN as string),
-    children: [
-      { index: true, Component: AdminAnalyticsPage },
-      ...generateRoutes(adminSidebarItems),
-    ],
+    children: [...generateRoutes(adminSidebarItems)],
   },
   {
     path: "/login",
@@ -61,5 +61,13 @@ export const router = createBrowserRouter([
   {
     path: "/register",
     Component: RegisterPage,
+  },
+  {
+    path: "*",
+    Component: NotFound,
+  },
+  {
+    path: "unAuthorized",
+    Component: UnAuthorized,
   },
 ]);

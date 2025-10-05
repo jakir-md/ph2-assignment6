@@ -67,7 +67,7 @@ export default function UpdateProfile() {
     }
   };
   return (
-    <div className="mt-5">
+    <div className="my-5">
       <Card className="rounded-md max-w-sm min-w-[340px] mx-auto">
         <CardContent>
           <div>

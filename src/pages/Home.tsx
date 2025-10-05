@@ -1,60 +1,36 @@
-import { ArrowRight, ArrowUpRight } from "lucide-react";
-
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import BillPay from "./BillPay";
 import { Link } from "react-router";
-
-// interface Hero1Props {
-//   badge?: string;
-//   heading: string;
-//   description: string;
-//   buttons?: {
-//     primary?: {
-//       text: string;
-//       url: string;
-//     };
-//     secondary?: {
-//       text: string;
-//       url: string;
-//     };
-//   };
-//   image: {
-//     src: string;
-//     alt: string;
-//   };
-// }
-
+import SendMoneyImage from "@/components/modules/home/SendMoneyImage";
+import { motion } from "framer-motion";
+import banner from "../../src/assets/images/bg-hero.png";
 export default function Home() {
   return (
-    <section className="py-32">
+    <section className="mt-4">
       <div className="container">
-        <div className="grid items-center gap-8 lg:grid-cols-2">
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-            <Badge variant="outline">
-              Your one time helper
-              <ArrowUpRight className="ml-2 size-4" />
-            </Badge>
-            <h1 className="my-6 text-pretty text-4xl font-bold lg:text-6xl">
-              DigiWallet
-            </h1>
-            <p className="text-muted-foreground mb-8 max-w-xl lg:text-xl">
-              Another Description
-            </p>
-            <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
-              <Button asChild className="w-full sm:w-auto">
+        <div className="relative">
+          <div>
+            <img src={banner} className="md:h-[500px] h-[500px] w-full" alt="" />
+          </div>
+          <div className="flex absolute top-10 md:top-30 md:left-20 items-center text-center">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 30 }}
+              transition={{ duration: 2 }}
+              className="mx-auto flex flex-col items-center text-center"
+            >
+              <h1 className="my-3 text-white mt-6 text-center text-pretty text-3xl font-bold lg:text-6xl">
+                Your Digital Wallet
+              </h1>
+              <h1 className="my-5 mt-0 md:mt-3 text-white text-center text-pretty text-3xl font-bold lg:text-6xl">
+                for a Cashless Future
+              </h1>
+              <Button asChild id="register" className=" sm:w-auto">
                 <Link to="/register">Get Started</Link>
               </Button>
-              <Button asChild variant="outline" className="w-full sm:w-auto">
-                <Link to="/login">
-                  Login
-                  <ArrowRight className="size-4" />
-                </Link>
-              </Button>
-            </div>
+            </motion.div>
           </div>
-          <div>
-            <BillPay />
+          <div className="absolute md:top-20 md:left-220 top-60 left-35">
+            <SendMoneyImage />
           </div>
         </div>
       </div>

@@ -19,7 +19,7 @@ export const agentSideBarItems = [
     items: [
       {
         title: "Overview",
-        url: "/agent/dashboard/overview",
+        url: "/agent/dashboard",
         component: AgentAnalyticsPage,
       },
     ],

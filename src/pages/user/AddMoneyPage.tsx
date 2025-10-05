@@ -32,10 +32,10 @@ export default function AddMoneyPage() {
 
   const handleConfirm = () => {
     setShowModal(false);
-    navigate("/user/dashboard/overview");
+    navigate("/user/dashboard");
   };
   return (
-    <Card className="rounded-md max-w-2xl min-w-[340px] mx-auto">
+    <Card className="mt-4 rounded-md max-w-2xl min-w-[340px] mx-auto">
       <CardContent>
         <Dialog open={showModal} onOpenChange={setShowModal}>
           <DialogContent className="w-[20rem] rounded-md">

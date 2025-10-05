@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { authApi, useLogoutMutation } from "@/redux/features/auth/auth.api";
 import { useDispatch } from "react-redux";
+import { startTour } from "./layout/TourGuide";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function UserMenu({ userInfo }: any) {
@@ -24,7 +25,7 @@ export default function UserMenu({ userInfo }: any) {
     dispatch(authApi.util.resetApiState());
   };
   return (
-    <div>
+    <div id="ProfileLogo">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-auto p-0 hover:bg-transparent">
@@ -49,6 +50,12 @@ export default function UserMenu({ userInfo }: any) {
           </DropdownMenuLabel>
           <DropdownMenuGroup></DropdownMenuGroup>
           <DropdownMenuSeparator />
+          <DropdownMenuItem
+            onClick={() => startTour()}
+            className="hover:cursor-pointer"
+          >
+            Start Tour
+          </DropdownMenuItem>
           <DropdownMenuItem>
             <LogOutIcon size={16} className="opacity-60" aria-hidden="true" />
             <span onClick={handleLogout} className="hover:cursor-pointer">

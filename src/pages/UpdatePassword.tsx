@@ -63,7 +63,7 @@ export default function UpdatePassword() {
     },
   });
   const onPasswordFormSubmit = async (data: passwordType) => {
-    const toastId = toast.loading("Updating Profile..");
+    const toastId = toast.loading("Changing Password..");
     try {
       const result = await changePassword({
         userId: userInfo?.data?._id,
@@ -78,7 +78,7 @@ export default function UpdatePassword() {
     }
   };
   return (
-    <div className="mt-5">
+    <div className="my-5">
       <Card className="rounded-md max-w-sm min-w-[340px] mx-auto">
         <CardContent>
           <div>

@@ -17,7 +17,7 @@ export const userSidebarItems = [
     items: [
       {
         title: "Overview",
-        url: "/user/dashboard/overview",
+        url: "/user/dashboard",
         component: AnalyticsPage,
       },
     ],
