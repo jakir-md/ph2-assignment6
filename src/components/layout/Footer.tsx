@@ -31,10 +31,8 @@ const defaultSections = [
   {
     title: "Product",
     links: [
-      { name: "Overview", href: "#" },
-      { name: "Pricing", href: "#" },
-      { name: "Marketplace", href: "#" },
-      { name: "Features", href: "#" },
+      { name: "Overview", href: "/features" },
+      { name: "Features", href: "/features" },
     ],
   },
   {

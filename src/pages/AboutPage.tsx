@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
+import image1 from "../../public/profile.png";
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section */}
-      <section className="bg-rose-600 dark:bg-rose-700 text-white py-8 px-6 text-center">
+      <section className="bg-rose-600 dark:bg-rose-800 text-white py-8 px-6 text-center">
         <motion.h1
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -57,11 +58,11 @@ export default function AboutPage() {
             className="bg-card text-card-foreground rounded-xl shadow-lg p-6"
           >
             <img
-              src="https://i.pravatar.cc/150?img=1"
+              src={image1}
               alt="Team Member"
               className="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-rose-500"
             />
-            <h3 className="text-xl font-semibold">Alice Johnson</h3>
+            <h3 className="text-xl font-semibold">Jakir Hossain</h3>
             <p className="text-muted-foreground">Founder & CEO</p>
           </motion.div>
 
@@ -70,11 +71,11 @@ export default function AboutPage() {
             className="bg-card text-card-foreground rounded-xl shadow-lg p-6"
           >
             <img
-              src="https://i.pravatar.cc/150?img=2"
+              src={image1}
               alt="Team Member"
               className="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-rose-500"
             />
-            <h3 className="text-xl font-semibold">Mark Thompson</h3>
+            <h3 className="text-xl font-semibold">Md Mizan Hossain</h3>
             <p className="text-muted-foreground">CTO</p>
           </motion.div>
 
@@ -83,11 +84,11 @@ export default function AboutPage() {
             className="bg-card text-card-foreground rounded-xl shadow-lg p-6"
           >
             <img
-              src="https://i.pravatar.cc/150?img=3"
+              src={image1}
               alt="Team Member"
               className="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-rose-500"
             />
-            <h3 className="text-xl font-semibold">Sophia Lee</h3>
+            <h3 className="text-xl font-semibold">Kabir Hossain</h3>
             <p className="text-muted-foreground">Head of Design</p>
           </motion.div>
         </div>

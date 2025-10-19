@@ -10,7 +10,6 @@ export default function AdminAnalyticsPage() {
   const [currentQuater, setCurrentQuater] = useState<string>("7, 8,9");
   const { data, isLoading } = useAdminAnalyticsQuery({ currentQuater });
 
-  console.log("quater data", data);
   return (
     <div className="mt-4">
       {isLoading ? (

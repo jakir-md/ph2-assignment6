@@ -10,7 +10,6 @@ import type { sendMoneyFormType } from "./SendMoneyForm";
 import { Button } from "@/components/ui/button";
 import {
   useCashOutMutation,
-  useSendMoneyMutation,
 } from "@/redux/features/user/user.api";
 import { toast } from "sonner";
 import { useNavigate } from "react-router";
@@ -32,7 +31,7 @@ export default function CashOutModal({
       const result = await cashOut(formInfo).unwrap();
       if (result.success) {
         toast.success("Cash Out Successfull.", { id: toastId });
-        navigate(`/${formInfo.role}/dashboard/overview`);
+        navigate(`/${formInfo.role}/dashboard`);
       }
     } catch (error: any) {
       console.log(error);

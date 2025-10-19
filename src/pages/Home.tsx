@@ -3,13 +3,19 @@ import { Link } from "react-router";
 import SendMoneyImage from "@/components/modules/home/SendMoneyImage";
 import { motion } from "framer-motion";
 import banner from "../../src/assets/images/bg-hero.png";
+import { useGetMeQuery } from "@/redux/features/user/user.api";
 export default function Home() {
+  const { data: userData } = useGetMeQuery(undefined);
   return (
     <section className="mt-4">
       <div className="container">
         <div className="relative">
           <div>
-            <img src={banner} className="md:h-[500px] h-[500px] w-full" alt="" />
+            <img
+              src={banner}
+              className="md:h-[500px] h-[500px] w-full"
+              alt=""
+            />
           </div>
           <div className="flex absolute top-10 md:top-30 md:left-20 items-center text-center">
             <motion.div
@@ -25,7 +31,7 @@ export default function Home() {
                 for a Cashless Future
               </h1>
               <Button asChild id="register" className=" sm:w-auto">
-                <Link to="/register">Get Started</Link>
+                {!userData && <Link to="/register">Get Started</Link>}
               </Button>
             </motion.div>
           </div>

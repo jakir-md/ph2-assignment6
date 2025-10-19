@@ -58,9 +58,9 @@ export default function UserMenu({ userInfo }: any) {
           </DropdownMenuItem>
           <DropdownMenuItem>
             <LogOutIcon size={16} className="opacity-60" aria-hidden="true" />
-            <span onClick={handleLogout} className="hover:cursor-pointer">
+            <button onClick={handleLogout} className="hover:cursor-pointer">
               Logout
-            </span>
+            </button>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

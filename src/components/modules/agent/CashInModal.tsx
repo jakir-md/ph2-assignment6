@@ -29,7 +29,7 @@ export default function CashInModal({
       const result = await cashIn({formInfo, phone:formInfo.userPhone}).unwrap();
       if (result.success) {
         toast.success("Cash in Successfull.", { id: toastId });
-        navigate(`/${formInfo.role}/dashboard/overview`);
+        navigate(`/${formInfo.role}/dashboard`);
       }
     } catch (error: any) {
       console.log(error);

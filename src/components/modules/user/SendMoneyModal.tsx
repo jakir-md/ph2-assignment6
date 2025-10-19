@@ -29,7 +29,7 @@ export default function SendMoneyModal({
       const result = await sendMoney(formInfo).unwrap();
       if (result.success) {
         toast.success("Send Money Successfull.", { id: toastId });
-        navigate(`/${formInfo.role}/dashboard/overview`);
+        navigate(`/${formInfo.role}/dashboard`);
       }
     } catch (error: any) {
       console.log(error);
