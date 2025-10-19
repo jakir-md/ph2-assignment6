@@ -1,4 +1,4 @@
-# 💳 Digital Wallet Frontend (React + Redux Toolkit + RTK Query)
+# 💳 DigiWallet
 
 A **secure, role-based, and user-friendly** frontend application for a **Digital Wallet System** — inspired by popular platforms like **bKash** and **Nagad**.  
 This project enables **Users**, **Agents**, and **Admins** to perform financial operations, manage wallets, and monitor transactions through an intuitive dashboard interface.
@@ -23,7 +23,6 @@ It integrates with a backend REST API to deliver end-to-end digital wallet funct
 ## 🛠️ Tech Stack
 
 ### **Frontend**
-## 🛠️ Technology Stack
 
 | Category                      | Technologies                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
